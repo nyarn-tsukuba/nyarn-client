@@ -10,9 +10,9 @@ user = "nyarnadmin"
 password = "OEk945I-mkLTslP53"
 sslmode = "require"
 conn_string = "host={0} user={1} dbname={2} password={3} sslmode={4}".format(host, user, dbname, password, sslmode)
-# conn = psycopg2.connect(conn_string)
-# print("Connection established")
-# cursor = conn.cursor()
+conn = psycopg2.connect(conn_string)
+print("Connection established")
+cursor = conn.cursor()
 
 
 # 人物認識
@@ -35,17 +35,17 @@ while True:
             count += 1
             print('OK')
 
-            conn = psycopg2.connect(conn_string)
-            print("Connection established")
-            cursor = conn.cursor()
+            # conn = psycopg2.connect(conn_string)
+            # print("Connection established")
+            # cursor = conn.cursor()
 
             try:
                 person = Feature.feature("./image/image_1.jpg")
                 querya =  f"INSERT INTO nyantable (time,age,sex,emotion) VALUES ('{person[0]}',{person[1]},'{person[2]}','{person[3]}');"
                 cursor.execute(querya)
                 conn.commit()
-                cursor.close()
-                conn.close()
+                #cursor.close()
+                #conn.close()
             except ValueError:
                 print('マスクを外してください')
             
@@ -53,4 +53,6 @@ while True:
             print('restart')
         else:
             print('wait...')
+cursor.close()
+conn.close()
 cv2.destroyAllWindows()
