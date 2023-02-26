@@ -1,7 +1,7 @@
 import cv2
 import torch
 import time
-import src.feature as Feature
+import src.feature
 import psycopg2
 # データベースに接続するための情報を指定
 host = "nyarnnyan.postgres.database.azure.com"
@@ -24,7 +24,7 @@ while True:
     cv2.imshow('Video', frame)
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
-    
+        
     result = model(frame)
     #推論結果を取得
     obj = result.pandas().xyxy[0]
